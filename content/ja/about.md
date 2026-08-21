@@ -1,6 +1,6 @@
 # About
 
-LennyxCREWは、音楽、物語、映像、言葉など、さまざまな創作活動を行うクリエイティブチームです。
+LennyxCREWは、音楽、物語、映像、言葉など、さまざまな創作活動を行う<br class="about-desktop-break" /><span class="about-desktop-nowrap">クリエイティブチーム</span>です。
 
 私たちは、対話を通して関係性を育み、それぞれの違いを尊重しながら、新しい可能性を創造しています。
 

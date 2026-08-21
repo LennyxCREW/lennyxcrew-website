@@ -11,3 +11,81 @@ const { language } = Astro.props;
 ---
 
 <ContentDocument language={language} slug="about" title="About" />
+
+<style is:global>
+  .document {
+    position: relative;
+    isolation: isolate;
+    width: 100vw;
+    max-width: none;
+    min-height: calc(100vh - 5rem);
+    min-height: calc(100svh - 5rem);
+    margin-left: calc(50% - 50vw);
+    padding: clamp(4rem, 9vh, 7rem) max(1.5rem, calc((100vw - 76rem) / 2));
+    overflow: hidden;
+    background:
+      linear-gradient(90deg, rgb(3 7 10 / 94%) 0%, rgb(4 8 11 / 80%) 32%, rgb(4 8 11 / 32%) 58%, rgb(3 7 10 / 8%) 78%),
+      linear-gradient(0deg, rgb(3 7 10 / 72%) 0%, transparent 40%),
+      #03070a url('/images/about-ancient-book.png') right center / auto 100% no-repeat;
+  }
+
+  .document::after {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border: 1px solid rgb(207 169 101 / 14%);
+    content: '';
+    pointer-events: none;
+  }
+
+  .document > * {
+    width: min(100%, 38rem);
+    text-shadow: 0 2px 22px rgb(0 0 0 / 78%);
+  }
+
+  .document h1 {
+    margin-bottom: clamp(2rem, 5vh, 3.5rem);
+    color: #f2ead9;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: clamp(3rem, 7vw, 5rem);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+
+  .document h2 {
+    margin-top: clamp(3rem, 7vh, 5rem);
+    color: #dcc69d;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+
+  .document p {
+    color: #e0ded7;
+    font-size: clamp(1rem, 1.45vw, 1.12rem);
+    line-height: 1.95;
+  }
+
+  @media (min-width: 48.0625rem) {
+    .about-desktop-nowrap {
+      white-space: nowrap;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .about-desktop-break {
+      display: none;
+    }
+
+    .document {
+      padding: 50vh 1rem 4rem;
+      background:
+        linear-gradient(0deg, rgb(3 7 10 / 98%) 0%, rgb(3 7 10 / 90%) 48%, rgb(3 7 10 / 18%) 76%),
+        #03070a url('/images/about-ancient-book.png') 58% top / auto 58vh no-repeat;
+    }
+
+    .document h1 {
+      font-size: clamp(2.7rem, 14vw, 4rem);
+    }
+  }
+</style>

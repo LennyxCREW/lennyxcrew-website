@@ -1,0 +1,72 @@
+---
+import {
+  getLocalizedPath,
+  languageNames,
+  languages,
+  navigation,
+  switchLanguage,
+  type Language,
+} from '../i18n/config';
+import { ui } from '../i18n/ui';
+
+interface Props {
+  language: Language;
+  pathname: string;
+}
+
+const { language, pathname } = Astro.props;
+const labels = ui[language];
+---
+
+<header class="site-header">
+  <a class="brand" href={getLocalizedPath(language)}>LennyxCREW</a>
+
+  <nav class="desktop-nav" aria-label={labels.primaryNavigation}>
+    {
+      navigation.map((item) => {
+        const href = getLocalizedPath(language, item.slug);
+        const isCurrent = pathname === href;
+        return (
+          <a href={href} aria-current={isCurrent ? 'page' : undefined}>
+            {item.label[language]}
+          </a>
+        );
+      })
+    }
+  </nav>
+
+  <nav class="language-nav" aria-label={labels.languageNavigation}>
+    {
+      languages.map((item, index) => (
+        <>
+          {index > 0 && <span aria-hidden="true">|</span>}
+          <a
+            href={switchLanguage(pathname, item)}
+            hreflang={item}
+            lang={item}
+            aria-current={item === language ? 'true' : undefined}
+          >
+            {languageNames[item]}
+          </a>
+        </>
+      ))
+    }
+  </nav>
+
+  <details class="mobile-menu">
+    <summary>{labels.menu}</summary>
+    <nav aria-label={labels.primaryNavigation}>
+      {
+        navigation.map((item) => {
+          const href = getLocalizedPath(language, item.slug);
+          const isCurrent = pathname === href;
+          return (
+            <a href={href} aria-current={isCurrent ? 'page' : undefined}>
+              {item.label[language]}
+            </a>
+          );
+        })
+      }
+    </nav>
+  </details>
+</header>

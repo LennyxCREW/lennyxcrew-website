@@ -1,0 +1,13 @@
+---
+import ContentDocument from '../../components/ContentDocument.astro';
+import { languages, type Language } from '../../i18n/config';
+
+export function getStaticPaths() {
+  return languages.map((lang) => ({ params: { lang }, props: { language: lang } }));
+}
+
+interface Props { language: Language }
+const { language } = Astro.props;
+---
+
+<ContentDocument language={language} slug="about" title="About" />

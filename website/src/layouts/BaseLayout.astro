@@ -1,0 +1,33 @@
+---
+import Header from '../components/Header.astro';
+import type { Language } from '../i18n/config';
+import { ui } from '../i18n/ui';
+import '../styles/global.css';
+
+interface Props {
+  language: Language;
+  title: string;
+  description?: string;
+}
+
+const { language, title, description = ui[language].siteDescription } = Astro.props;
+const pageTitle = title === 'LennyxCREW' ? title : `${title} | LennyxCREW`;
+---
+
+<!doctype html>
+<html lang={language}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">{ui[language].skipToContent}</a>
+    <Header language={language} pathname={Astro.url.pathname} />
+    <main id="main-content">
+      <slot />
+    </main>
+  </body>
+</html>

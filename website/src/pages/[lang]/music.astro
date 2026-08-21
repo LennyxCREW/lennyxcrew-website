@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { languages, type Language } from '../../i18n/config';
+import { ui } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return languages.map((lang) => ({ params: { lang }, props: { language: lang } }));
+}
+
+interface Props { language: Language }
+const { language } = Astro.props;
+const labels = ui[language];
+---
+
+<BaseLayout language={language} title={labels.musicTitle}>
+  <section class="page-intro">
+    <h1>{labels.musicTitle}</h1>
+    <p class="lead">{labels.musicLead}</p>
+    <p>{labels.musicStatus}</p>
+  </section>
+</BaseLayout>

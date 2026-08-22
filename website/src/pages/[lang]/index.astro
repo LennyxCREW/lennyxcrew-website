@@ -19,7 +19,18 @@ const labels = ui[language];
   <section class="hero home-hero">
     <div class="home-hero__content">
       <p class="eyebrow">LennyxCREW</p>
-      <h1>{labels.homeTitle}</h1>
+      <h1>
+        {
+          language === 'ja' ? (
+            <>
+              <span class="home-title--desktop">一人では辿り着けない未来を<br />人とAIで</span>
+              <span class="home-title--mobile">{labels.homeTitle}</span>
+            </>
+          ) : (
+            labels.homeTitle
+          )
+        }
+      </h1>
       <p>{labels.homeLead}</p>
       <a class="text-link home-hero__link" href={getLocalizedPath(language, 'about')}>
         {labels.homeLink}<span aria-hidden="true">&#8594;</span>
@@ -81,6 +92,10 @@ const labels = ui[language];
     color: #e1e4da;
   }
 
+  .home-title--mobile {
+    display: none;
+  }
+
   .home-hero__link {
     display: inline-flex;
     align-items: center;
@@ -97,7 +112,36 @@ const labels = ui[language];
     border-color: #f1e9ca;
   }
 
+  @media (min-width: 48.0625rem) {
+    .home-title--mobile {
+      display: none !important;
+    }
+
+    :global(html[lang='ja']) .home-hero .eyebrow {
+      font-size: 1.4rem;
+      letter-spacing: 0.16em;
+      text-transform: none;
+    }
+
+    :global(html[lang='ja']) .home-hero h1 {
+      max-width: 50rem;
+      font-size: clamp(2.4rem, 3.8vw, 3.5rem);
+    }
+
+    :global(html[lang='ja']) .home-title--desktop {
+      white-space: nowrap;
+    }
+  }
+
   @media (max-width: 48rem) {
+    .home-title--desktop {
+      display: none;
+    }
+
+    .home-title--mobile {
+      display: inline;
+    }
+
     .home-hero {
       padding-inline: 1rem;
       background:

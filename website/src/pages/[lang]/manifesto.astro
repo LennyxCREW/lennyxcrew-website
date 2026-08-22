@@ -11,3 +11,80 @@ const { language } = Astro.props;
 ---
 
 <ContentDocument language={language} slug="manifesto" title="Manifesto" />
+
+<style is:global>
+  .document {
+    position: relative;
+    isolation: isolate;
+    width: 100vw;
+    max-width: none;
+    min-height: calc(100vh - 5rem);
+    min-height: calc(100svh - 5rem);
+    margin-left: calc(50% - 50vw);
+    padding: clamp(4rem, 9vh, 7rem) max(1.5rem, calc((100vw - 76rem) / 2));
+    overflow: hidden;
+    background:
+      linear-gradient(90deg, rgb(3 6 8 / 97%) 0%, rgb(3 6 8 / 88%) 28%, rgb(3 6 8 / 58%) 46%, rgb(3 6 8 / 12%) 72%),
+      linear-gradient(0deg, rgb(3 6 8 / 96%) 0%, rgb(3 6 8 / 30%) 38rem, transparent 54rem),
+      #030608 url('/images/manifesto-ancient-book.png') right top / auto calc(100svh - 5rem) no-repeat;
+  }
+
+  .document::after {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border: 1px solid rgb(218 174 98 / 16%);
+    content: '';
+    pointer-events: none;
+  }
+
+  .document > * {
+    width: min(100%, 38rem);
+    text-shadow: 0 2px 22px rgb(0 0 0 / 82%);
+  }
+
+  .document h1 {
+    margin-bottom: clamp(2rem, 5vh, 3.5rem);
+    color: #f3ead8;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: clamp(3rem, 7vw, 5rem);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+
+  .document h2,
+  .document h3 {
+    color: #ddc496;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+
+  .document h2 {
+    margin-top: clamp(3rem, 7vh, 5rem);
+  }
+
+  .document h3 {
+    margin-block: 2.75rem 1.4rem;
+    font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+  }
+
+  .document p {
+    color: #e1ddd4;
+    font-size: clamp(1rem, 1.45vw, 1.12rem);
+    line-height: 1.95;
+  }
+
+  @media (max-width: 48rem) {
+    .document {
+      padding: 48vh 1rem 4rem;
+      background:
+        linear-gradient(0deg, rgb(3 6 8 / 99%) 0%, rgb(3 6 8 / 92%) 46%, rgb(3 6 8 / 18%) 74%),
+        #030608 url('/images/manifesto-ancient-book.png') center top / auto 52vh no-repeat;
+    }
+
+    .document h1 {
+      font-size: clamp(2.7rem, 14vw, 4rem);
+    }
+  }
+</style>

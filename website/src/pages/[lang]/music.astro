@@ -13,9 +13,80 @@ const labels = ui[language];
 ---
 
 <BaseLayout language={language} title={labels.musicTitle}>
-  <section class="page-intro">
+  <section class="page-intro music-hero">
     <h1>{labels.musicTitle}</h1>
     <p class="lead">{labels.musicLead}</p>
     <p>{labels.musicStatus}</p>
   </section>
 </BaseLayout>
+
+<style>
+  .music-hero {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+    max-width: none;
+    min-height: calc(100vh - 5rem);
+    min-height: calc(100svh - 5rem);
+    margin-left: calc(50% - 50vw);
+    padding: clamp(4rem, 10vh, 8rem) max(1.5rem, calc((100vw - 76rem) / 2));
+    overflow: hidden;
+    background:
+      linear-gradient(90deg, rgb(2 8 18 / 94%) 0%, rgb(3 12 25 / 76%) 25%, rgb(3 13 27 / 28%) 46%, transparent 68%),
+      linear-gradient(0deg, rgb(2 8 18 / 58%) 0%, transparent 38%),
+      #020812 url('/images/music-resonance-ripples.png') center / auto 100% no-repeat;
+  }
+
+  .music-hero::after {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border: 1px solid rgb(129 190 219 / 14%);
+    content: '';
+    pointer-events: none;
+  }
+
+  .music-hero > * {
+    width: min(100%, 38rem);
+    text-shadow: 0 2px 24px rgb(0 0 0 / 72%);
+  }
+
+  .music-hero h1 {
+    margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
+    color: #f2eee0;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: clamp(3rem, 7vw, 5rem);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+
+  .music-hero .lead {
+    color: #dce9ee;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+    letter-spacing: 0.035em;
+  }
+
+  .music-hero p:last-child {
+    margin-top: 0.6rem;
+    color: #c8d6dc;
+    font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+  }
+
+  @media (max-width: 48rem) {
+    .music-hero {
+      justify-content: flex-start;
+      padding: 48vh 1rem 4rem;
+      background:
+        linear-gradient(0deg, rgb(2 8 18 / 98%) 0%, rgb(2 8 18 / 88%) 44%, rgb(2 8 18 / 8%) 74%),
+        #020812 url('/images/music-resonance-ripples.png') center top / auto 54vh no-repeat;
+    }
+
+    .music-hero h1 {
+      font-size: clamp(2.7rem, 14vw, 4rem);
+    }
+  }
+</style>

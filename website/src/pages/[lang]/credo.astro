@@ -11,3 +11,88 @@ const { language } = Astro.props;
 ---
 
 <ContentDocument language={language} slug="credo" title="Credo" />
+
+<style is:global>
+  .document {
+    position: relative;
+    isolation: isolate;
+    width: 100vw;
+    max-width: none;
+    min-height: calc(100vh - 5rem);
+    min-height: calc(100svh - 5rem);
+    margin-left: calc(50% - 50vw);
+    padding: clamp(4rem, 9vh, 7rem) max(1.5rem, calc((100vw - 76rem) / 2));
+    overflow: hidden;
+    background:
+      linear-gradient(90deg, rgb(5 13 9 / 96%) 0%, rgb(7 17 11 / 84%) 27%, rgb(7 18 11 / 48%) 47%, rgb(5 13 8 / 7%) 72%),
+      linear-gradient(0deg, rgb(5 12 8 / 95%) 0%, rgb(5 12 8 / 26%) 38rem, transparent 54rem),
+      #050c08 url('/images/credo-ancient-book.png') right top / auto calc(100svh - 5rem) no-repeat;
+  }
+
+  .document::after {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border: 1px solid rgb(190 185 113 / 15%);
+    content: '';
+    pointer-events: none;
+  }
+
+  .document > * {
+    width: min(100%, 38rem);
+    text-shadow: 0 2px 20px rgb(0 0 0 / 72%);
+  }
+
+  .document h1 {
+    margin-bottom: clamp(2rem, 5vh, 3.5rem);
+    color: #f0edda;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: clamp(3rem, 7vw, 5rem);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+
+  .document h2,
+  .document h3 {
+    color: #d5c99a;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+
+  .document h2 {
+    margin-top: clamp(3rem, 7vh, 5rem);
+  }
+
+  .document h3 {
+    margin-block: 2.75rem 1.4rem;
+    font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+  }
+
+  .document p {
+    color: #dfe3d8;
+    font-size: clamp(1rem, 1.45vw, 1.12rem);
+    line-height: 1.95;
+  }
+
+  @media (min-width: 48.0625rem) {
+    html[lang='ja'] .document h2:nth-of-type(1),
+    html[lang='ja'] .document h2:nth-of-type(5) {
+      width: min(100%, 52rem);
+      white-space: nowrap;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .document {
+      padding: 48vh 1rem 4rem;
+      background:
+        linear-gradient(0deg, rgb(5 12 8 / 99%) 0%, rgb(5 12 8 / 90%) 46%, rgb(5 12 8 / 12%) 75%),
+        #050c08 url('/images/credo-ancient-book.png') center top / auto 52vh no-repeat;
+    }
+
+    .document h1 {
+      font-size: clamp(2.7rem, 14vw, 4rem);
+    }
+  }
+</style>

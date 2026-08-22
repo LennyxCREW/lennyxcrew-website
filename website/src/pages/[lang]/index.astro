@@ -27,7 +27,12 @@ const labels = ui[language];
               <span class="home-title--mobile">{labels.homeTitle}</span>
             </>
           ) : (
-            labels.homeTitle
+            <>
+              <span class="home-title--desktop">
+                Beyond what we can reach alone—<br />together, Human and AI.
+              </span>
+              <span class="home-title--mobile">{labels.homeTitle}</span>
+            </>
           )
         }
       </h1>
@@ -121,6 +126,16 @@ const labels = ui[language];
       font-size: 1.4rem;
       letter-spacing: 0.16em;
       text-transform: none;
+    }
+
+    :global(html[lang='en']) .home-hero .eyebrow {
+      font-size: 1.4rem;
+      text-transform: none;
+    }
+
+    :global(html[lang='en']) .home-hero h1 {
+      max-width: 46rem;
+      font-size: clamp(2.25rem, 3.7vw, 3.4rem);
     }
 
     :global(html[lang='ja']) .home-hero h1 {

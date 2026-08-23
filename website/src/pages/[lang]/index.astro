@@ -24,7 +24,10 @@ const labels = ui[language];
           language === 'ja' ? (
             <>
               <span class="home-title--desktop">一人では辿り着けない未来を<br />人とAIで</span>
-              <span class="home-title--mobile">{labels.homeTitle}</span>
+              <span class="home-title--mobile home-title--mobile-ja">
+                <span>一人では辿り着けない未来を</span>
+                <span>人とAIで</span>
+              </span>
             </>
           ) : (
             <>
@@ -171,6 +174,22 @@ const labels = ui[language];
 
     .home-hero h1 {
       font-size: clamp(2.25rem, 11vw, 3.8rem);
+    }
+
+    :global(html[lang='ja']) .home-hero .eyebrow {
+      font-size: 0.95rem;
+      text-transform: none;
+    }
+
+    :global(html[lang='ja']) .home-hero h1 {
+      width: min(100%, 25rem);
+      font-size: clamp(1.3rem, 6.5vw, 1.65rem);
+      line-height: 1.5;
+    }
+
+    .home-title--mobile-ja > span {
+      display: block;
+      white-space: nowrap;
     }
   }
 </style>

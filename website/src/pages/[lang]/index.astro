@@ -181,6 +181,15 @@ const labels = ui[language];
       text-transform: none;
     }
 
+    :global(html[lang='en']) .home-hero .eyebrow {
+      font-size: 0.95rem;
+      text-transform: none;
+    }
+
+    :global(html[lang='en']) .home-hero h1 {
+      font-size: clamp(2rem, 8vw, 3.25rem);
+    }
+
     :global(html[lang='ja']) .home-hero h1 {
       width: min(100%, 25rem);
       font-size: clamp(1.3rem, 6.5vw, 1.65rem);

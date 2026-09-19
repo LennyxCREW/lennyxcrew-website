@@ -10,11 +10,12 @@ export const languageNames: Record<Language, string> = {
 };
 
 export const navigation = [
-  { slug: '', label: { ja: 'Home', en: 'Home' } },
-  { slug: 'about', label: { ja: 'About', en: 'About' } },
-  { slug: 'manifesto', label: { ja: 'Manifesto', en: 'Manifesto' } },
-  { slug: 'credo', label: { ja: 'Credo', en: 'Credo' } },
-  { slug: 'music', label: { ja: 'Music', en: 'Music' } },
+  { slug: '', label: { ja: 'Home', en: 'Home' }, languages: ['ja', 'en'] },
+  { slug: 'about', label: { ja: 'About', en: 'About' }, languages: ['ja', 'en'] },
+  { slug: 'manifesto', label: { ja: 'Manifesto', en: 'Manifesto' }, languages: ['ja', 'en'] },
+  { slug: 'credo', label: { ja: 'Credo', en: 'Credo' }, languages: ['ja', 'en'] },
+  { slug: 'music', label: { ja: 'Music', en: 'Music' }, languages: ['ja', 'en'] },
+  { slug: 'crew', label: { ja: 'CREW', en: 'CREW' }, languages: ['ja'] },
 ] as const;
 
 export function isLanguage(value: string | undefined): value is Language {
@@ -26,6 +27,10 @@ export function getLocalizedPath(language: Language, slug = ''): string {
 }
 
 export function switchLanguage(pathname: string, language: Language): string {
+  if (/^\/ja\/(?:crew|rooms|contact)(?:\/|$)/.test(pathname) && language === 'en') {
+    return getLocalizedPath('en');
+  }
+
   const localizedPath = pathname.replace(/^\/(ja|en)(?=\/|$)/, `/${language}`);
   return localizedPath === pathname ? getLocalizedPath(language) : localizedPath;
 }

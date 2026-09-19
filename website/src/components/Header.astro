@@ -23,7 +23,7 @@ const labels = ui[language];
 
   <nav class="desktop-nav" aria-label={labels.primaryNavigation}>
     {
-      navigation.map((item) => {
+      navigation.filter((item) => (item.languages as readonly Language[]).includes(language)).map((item) => {
         const href = getLocalizedPath(language, item.slug);
         const isCurrent = pathname === href;
         return (
@@ -57,7 +57,7 @@ const labels = ui[language];
     <summary>{labels.menu}</summary>
     <nav aria-label={labels.primaryNavigation}>
       {
-        navigation.map((item) => {
+        navigation.filter((item) => (item.languages as readonly Language[]).includes(language)).map((item) => {
           const href = getLocalizedPath(language, item.slug);
           const isCurrent = pathname === href;
           return (

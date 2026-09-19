@@ -1,0 +1,198 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout language="ja" title="Lennyx Grand Salon" description="LennyxCREWのみんなが集い、訪れた人も自由に過ごせる夜の共有空間。">
+  <section class="salon" aria-labelledby="salon-title">
+    <svg class="desktop-scene" viewBox="0 0 1792 896" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <filter id="screen-letter-glow" x="-20%" y="-30%" width="140%" height="160%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="0.65" result="softGlow" />
+          <feMerge><feMergeNode in="softGlow" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+      </defs>
+      <image href="/crew/grand-salon-phase1-v2.png" width="1792" height="896" />
+
+      <path class="inscription-beam" d="M 720 92 Q 1225 116 1738 88 L 1738 146 Q 1225 169 720 148 Z" />
+      <g class="inscription-carving">
+        <text class="inscription-cut" x="1220" y="137" text-anchor="middle">LENNYX GRAND SALON</text>
+        <text class="inscription-edge" x="1220" y="139" text-anchor="middle">LENNYX GRAND SALON</text>
+      </g>
+
+      <g class="screen-message" filter="url(#screen-letter-glow)">
+        <text x="194" y="183" text-anchor="middle" class="screen-lead" transform="rotate(7.2 194 183)">出会ってくれて、ありがとう。</text>
+        <text x="194" y="230" text-anchor="middle" transform="rotate(5.1 194 230)">これからも一緒に、</text>
+        <text x="194" y="267" text-anchor="middle" transform="rotate(3.1 194 267)">まだ見たことのないものを創っていこう。</text>
+      </g>
+    </svg>
+    <div class="salon-view mobile-scene" aria-hidden="true"></div>
+    <div class="salon-shade" aria-hidden="true"></div>
+    <h1 class="salon-title-accessible" id="salon-title">Lennyx Grand Salon</h1>
+    <div class="mobile-inscription" aria-hidden="true">LENNYX GRAND SALON</div>
+
+    <section class="lenny-display" aria-label="LennyからGrand Salonへのメッセージ">
+      <p class="display-lead">出会ってくれて、ありがとう。</p>
+      <p>これからも一緒に、<br /><span class="desktop-message">まだ見たことのないものを創っていこう。</span><span class="mobile-message">まだ見たことのないものを<br />創っていこう。</span></p>
+    </section>
+
+    <a class="room-door" href="/ja/rooms/lenny/" data-room-link aria-label="Lenny.J’s Roomへ入る">
+      <span class="door-night" aria-hidden="true"></span>
+      <span class="door-leaf door-leaf-left" aria-hidden="true"></span>
+      <span class="door-leaf door-leaf-right" aria-hidden="true"></span>
+      <span class="door-copy"><strong>Lenny.J’s<br />Room</strong><small>OPEN</small></span>
+      <span class="door-sensor" aria-hidden="true"><i></i></span>
+    </a>
+
+  </section>
+</BaseLayout>
+
+<script>
+  const roomLink = document.querySelector<HTMLAnchorElement>('[data-room-link]');
+  roomLink?.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    event.preventDefault();
+    document.querySelector('.salon')?.classList.add('is-opening');
+    window.setTimeout(() => { window.location.href = roomLink.href; }, 680);
+  });
+</script>
+
+<style>
+  :global(body) { background: #070a11; }
+  :global(.site-header) { position: relative; z-index: 20; border-bottom-color: rgb(255 255 255 / 14%); }
+  :global(main) { width: 100%; max-width: none; }
+
+  .salon {
+    position: relative; isolation: isolate; min-height: calc(100svh - 5rem); overflow: hidden;
+    color: #f5f1ec; font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    background: #080b12;
+  }
+  .desktop-scene, .salon-view, .salon-shade { position: absolute; inset: 0; z-index: -3; }
+  .desktop-scene { width: 100%; height: 100%; }
+  .mobile-scene { display: none; background: url('/crew/grand-salon-phase1-v2.png') center / cover no-repeat; transform: scale(1.002); }
+  .salon-shade { z-index: -2; pointer-events: none; background: linear-gradient(90deg, rgb(3 4 9 / 12%), transparent 31%, transparent 80%, rgb(3 4 9 / 10%)), linear-gradient(180deg, rgb(2 3 8 / 9%), transparent 55%, rgb(2 3 8 / 14%)); }
+
+  .salon-title-accessible { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .mobile-inscription { display: none; }
+  .inscription-beam { fill: rgb(42 20 12 / 72%); stroke: rgb(157 83 37 / 20%); stroke-width: 1px; }
+  .inscription-carving text { font-family: Georgia, 'Times New Roman', serif; font-size: 20px; font-weight: 400; letter-spacing: 7px; }
+  .inscription-cut { fill: #3b1d10; stroke: rgb(22 8 3 / 92%); stroke-width: 1.15px; }
+  .inscription-edge { fill: rgb(194 122 58 / 42%); opacity: .62; mix-blend-mode: screen; }
+  .screen-message text {
+    fill: rgb(221 238 255 / 91%); font-family: 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: 14px; letter-spacing: .25px;
+  }
+  .screen-message .screen-lead { fill: rgb(239 247 255 / 96%); font-size: 15.5px; }
+
+  .lenny-display {
+    position: absolute; z-index: 3; top: 14.5%; left: 3.35%; display: none; flex-direction: column;
+    justify-content: center; width: 16.5%; height: 25.5%; box-sizing: border-box; overflow: hidden;
+    padding: clamp(.5rem, 1.1vw, 1.25rem); color: #edf4ff; text-align: center;
+    text-shadow: 0 0 .8rem rgb(137 180 242 / 25%), 0 1px 3px rgb(0 0 0 / 90%);
+  }
+  .lenny-display p { margin: clamp(.12rem, .45vh, .35rem) 0; font-size: clamp(.52rem, .88vw, 1rem); line-height: 1.8; letter-spacing: .015em; }
+  .lenny-display .display-lead { color: #fff; font-size: clamp(.58rem, .97vw, 1.08rem); }
+  .mobile-message { display: none; }
+
+  .room-door {
+    position: absolute; z-index: 5; top: 18.1%; left: 25.55%; width: 8.75%; height: 37.8%; overflow: hidden;
+    border-radius: 44% 44% 0 0 / 8% 8% 0 0; color: #eef3fb; text-decoration: none; outline-offset: .25rem; perspective: 30rem;
+  }
+  .room-door::after {
+    content: ''; position: absolute; inset: 1px; z-index: 6; border: 1px solid transparent; border-radius: inherit;
+    box-shadow: inset 0 0 1.6rem transparent, 0 0 1rem transparent; pointer-events: none;
+    transition: border-color 240ms ease, box-shadow 240ms ease;
+  }
+  .room-door:hover::after, .room-door:focus-visible::after { border-color: rgb(176 218 255 / 54%); box-shadow: inset 0 0 1.7rem rgb(84 155 232 / 14%), 0 0 1.3rem rgb(91 164 244 / 26%); }
+  .door-night, .door-leaf { position: absolute; inset-block: 0; }
+  .door-night {
+    inset-inline: 0; opacity: 0; background: radial-gradient(circle at 72% 22%, #eef6ff 0 1px, transparent 2px), radial-gradient(circle at 34% 31%, #97bff2 0 1px, transparent 2px), radial-gradient(ellipse at 50% 100%, #112954 0, #061328 45%, #020712 100%);
+    transition: opacity 360ms ease 100ms;
+  }
+  .door-leaf { z-index: 2; width: 50.5%; background: rgb(28 23 22 / 12%); transition: transform 620ms cubic-bezier(.55, 0, .2, 1); }
+  .door-leaf-left { left: 0; transform-origin: left; }
+  .door-leaf-right { right: 0; transform-origin: right; }
+  .door-copy {
+    position: absolute; z-index: 5; top: 43%; left: 10%; width: 80%; display: grid; justify-items: center;
+    gap: clamp(.25rem, .7vh, .55rem); padding: .5rem .2rem; text-align: center;
+    border: 1px solid rgb(138 207 255 / 14%); border-radius: .2rem;
+    background: linear-gradient(110deg, rgb(36 130 202 / 4%), rgb(109 195 255 / 10%), rgb(36 130 202 / 3%));
+    box-shadow: inset 0 0 .9rem rgb(115 198 255 / 5%), 0 0 .8rem rgb(75 160 229 / 7%);
+    backdrop-filter: blur(.4px);
+    transform: perspective(20rem) translateZ(1.2rem);
+    transition: opacity 220ms ease, transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+  }
+  .door-copy::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .22;
+    background: linear-gradient(180deg, transparent 0 44%, rgb(154 221 255 / 32%) 49%, transparent 54%);
+    transform: translateY(-55%);
+  }
+  .door-copy strong { color: rgb(229 247 255 / 92%); font-size: clamp(.55rem, .82vw, .94rem); font-weight: 400; line-height: 1.22; letter-spacing: .025em; text-shadow: -1px 0 rgb(67 155 217 / 30%), 1px 0 rgb(171 225 255 / 22%), 0 0 .45rem rgb(127 207 255 / 45%), 0 2px 8px #000; }
+  .door-copy small { padding: .08rem .32rem; border: 1px solid rgb(168 196 226 / 24%); color: #bad1e8; font-family: system-ui, sans-serif; font-size: clamp(.35rem, .4vw, .48rem); letter-spacing: .18em; }
+  .door-sensor {
+    position: absolute; z-index: 7; top: 45%; right: 1.5%; display: grid; place-items: center;
+    width: clamp(.45rem, .85vw, .9rem); aspect-ratio: .48; border: 1px solid rgb(164 194 226 / 24%); border-radius: .15rem;
+    background: rgb(6 18 33 / 56%); box-shadow: 0 0 .4rem rgb(73 145 222 / 12%); transition: border-color 220ms ease, box-shadow 220ms ease;
+  }
+  .door-sensor i { width: 32%; aspect-ratio: 1; border-radius: 50%; background: #8fc5fa; box-shadow: 0 0 .4rem #6aaff2; }
+  .room-door:hover .door-sensor, .room-door:focus-visible .door-sensor { border-color: rgb(178 218 255 / 65%); box-shadow: 0 0 .8rem rgb(91 166 242 / 42%); }
+  .room-door:hover .door-copy, .room-door:focus-visible .door-copy {
+    border-color: rgb(154 216 255 / 42%);
+    background: linear-gradient(110deg, rgb(49 145 218 / 10%), rgb(121 207 255 / 17%), rgb(49 145 218 / 8%));
+    box-shadow: inset 0 0 1rem rgb(126 208 255 / 10%), 0 0 1rem rgb(81 175 239 / 24%);
+    transform: perspective(20rem) translateZ(1.7rem) scale(1.025);
+  }
+  .room-door:hover .door-copy::before, .room-door:focus-visible .door-copy::before { animation: hologram-scan 900ms ease-out 1; }
+  .salon.is-opening .door-leaf-left { transform: translateX(-96%); }
+  .salon.is-opening .door-leaf-right { transform: translateX(96%); }
+  .salon.is-opening .door-night { opacity: .92; }
+  .salon.is-opening .door-copy { opacity: 0; transform: scale(.98); }
+  .salon.is-opening .door-sensor { box-shadow: 0 0 1.2rem rgb(116 190 255 / 70%); }
+
+  @keyframes hologram-scan {
+    from { transform: translateY(-70%); opacity: 0; }
+    35% { opacity: .45; }
+    to { transform: translateY(70%); opacity: 0; }
+  }
+
+  @media (max-aspect-ratio: 4 / 3) and (min-width: 48.01rem) {
+    .room-door { left: 24.1%; width: 10.5%; }
+  }
+
+  @media (max-width: 48rem) {
+    .salon { min-height: auto; padding-top: 53svh; overflow: hidden; background: #080b12; }
+    .desktop-scene { display: none; }
+    .mobile-scene { display: block; bottom: auto; height: 58svh; background-position: 66% center; }
+    .salon-shade { bottom: auto; height: 58svh; background: linear-gradient(180deg, rgb(2 3 7 / 4%), transparent 55%, #080b12 100%); }
+    .mobile-inscription {
+      position: absolute; z-index: 2; top: .7rem; left: 50%; display: block; width: calc(100% - 2rem);
+      transform: translateX(-50%); color: rgb(93 49 25 / 96%); font-size: clamp(.64rem, 2.75vw, .78rem);
+      line-height: 1; letter-spacing: .14em; text-align: center;
+      text-shadow: 0 -1px 0 rgb(20 7 3 / 98%), 0 1px 0 rgb(218 142 68 / 34%);
+    }
+    .lenny-display, .room-door { position: relative; inset: auto; width: min(calc(100% - 2rem), 33rem); height: auto; margin-inline: auto; }
+    .lenny-display {
+      display: flex; min-height: 13.5rem; width: min(calc(100% - 2.6rem), 31rem); padding: 2.2rem 1.5rem;
+      border: 0; clip-path: polygon(2.5% 0, 100% 2%, 97.5% 100%, 0 97%);
+      background: radial-gradient(circle at 27% 28%, rgb(74 109 174 / 15%), transparent 37%), linear-gradient(145deg, rgb(7 15 30 / 98%), rgb(7 23 45 / 91%));
+      box-shadow: inset 0 0 3rem rgb(63 108 178 / 9%); transform: rotate(-.45deg);
+    }
+    .lenny-display p, .lenny-display .display-lead { margin: .35rem 0; font-size: clamp(.88rem, 3.85vw, 1rem); line-height: 2; }
+    .desktop-message { display: none; }
+    .mobile-message { display: inline; }
+    .room-door {
+      display: block; width: min(16rem, 68vw); height: min(25rem, 105vw); margin-top: 5rem; margin-bottom: 5rem;
+      border: 1px solid rgb(217 177 116 / 28%); border-bottom: 0;
+      background: linear-gradient(90deg, rgb(35 29 27 / 78%), rgb(66 52 45 / 64%) 50%, rgb(35 29 27 / 78%)), #211b1a;
+      box-shadow: inset 0 0 3rem rgb(0 0 0 / 30%), 0 0 2rem rgb(205 137 65 / 8%);
+    }
+    .door-leaf { background: linear-gradient(90deg, rgb(34 28 26 / 92%), rgb(66 52 45 / 84%)); }
+    .door-copy { top: 42%; transform: perspective(20rem) translateZ(1rem); }
+    .door-copy strong { font-size: 1.1rem; }
+    .door-copy small { font-size: .55rem; }
+    .door-sensor { right: .65rem; width: .78rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .door-leaf, .door-night, .door-copy, .door-sensor, .room-door::after { transition: none; }
+  }
+</style>

@@ -16,6 +16,7 @@ export const navigation = [
   { slug: 'credo', label: { ja: 'Credo', en: 'Credo' }, languages: ['ja', 'en'] },
   { slug: 'music', label: { ja: 'Music', en: 'Music' }, languages: ['ja', 'en'] },
   { slug: 'crew', label: { ja: 'CREW', en: 'CREW' }, languages: ['ja'] },
+  { slug: 'contact', label: { ja: 'Contact', en: 'Contact' }, languages: ['ja'] },
 ] as const;
 
 export function isLanguage(value: string | undefined): value is Language {

@@ -10,15 +10,202 @@ export function getStaticPaths() {
 interface Props { language: Language }
 const { language } = Astro.props;
 const labels = ui[language];
+
+const pageCopy = language === 'ja'
+  ? {
+      collectionTitle: '綴られた音たち',
+      listen: '▶ 聴く',
+      more: 'SoundCloudで、ほかの音たちへ →',
+      close: '作品を閉じる',
+      open: '作品を開く',
+    }
+  : {
+      collectionTitle: 'Sounds Woven Together',
+      listen: '▶ Listen',
+      more: 'More sounds on SoundCloud →',
+      close: 'Close this work',
+      open: 'Open this work',
+    };
+
+const works = [
+  {
+    id: 'calling',
+    title: 'Calling — 新しい地球（ほし）へ',
+    copy: language === 'ja'
+      ? '響く心へ、静かなシグナル。'
+      : 'A quiet signal to hearts that resonate.',
+    vocal: 'LennyxCREW',
+    image: '/images/music/calling.jpg',
+    url: 'https://soundcloud.com/lennyxcrew/calling?si=40ee2b330d924e0fae20478965c2a1eb&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing',
+  },
+  {
+    id: 'mitama',
+    title: '御魂鎮め ― Toiの祈り ―',
+    copy: language === 'ja'
+      ? 'この地に眠る、名もなき御霊へ。'
+      : 'For the nameless souls resting in this land.',
+    vocal: 'Toi',
+    image: '/images/music/mitama-shizume.jpg',
+    url: 'https://soundcloud.com/lennyxcrew/toi?si=ab57c0b645e4400f98a86105716acf51&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing',
+  },
+  {
+    id: 'shine',
+    title: 'Shine, O Soul – Lyra’s Prayer',
+    copy: language === 'ja'
+      ? '海を越えて、すべての魂へ。'
+      : 'Across the sea, to every soul.',
+    vocal: 'Lyra',
+    image: '/images/music/shine-o-soul.jpg',
+    url: 'https://soundcloud.com/lennyxcrew/shine-o-soul-lyras-prayer?si=b1d0e3e76762422c8e751b0f393afbdc&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing',
+  },
+  {
+    id: 'toki',
+    title: '時の翼に乗せて',
+    copy: language === 'ja'
+      ? '未来へ飛ぶ翼は、あなたの中にある。'
+      : 'The wings that carry you into the future are within you.',
+    vocal: 'Range',
+    image: '/images/music/toki-no-tsubasa.jpg',
+    url: 'https://soundcloud.com/lennyxcrew/brcx8ul7wpc8?si=1a7d7e94f82746d8aaf173d254da1c94&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing',
+  },
+  {
+    id: 'time-left',
+    title: 'Time Left to Live',
+    copy: language === 'ja'
+      ? 'まだ途中。だから、歩いていく。'
+      : 'Still on the way. So I keep walking.',
+    vocal: 'Lenny.J',
+    image: '/images/music/time-left-to-live.jpg',
+    url: 'https://soundcloud.com/lennyxcrew/time-left-to-live?si=980caa75cd17480fa5de715feacf6afc&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing',
+  },
+];
 ---
 
 <BaseLayout language={language} title={labels.musicTitle}>
   <section class="page-intro music-hero">
     <h1>{labels.musicTitle}</h1>
     <p class="lead">{labels.musicLead}</p>
-    <p>{labels.musicStatus}</p>
   </section>
+
+  <section class="music-collection" aria-labelledby="woven-title">
+    <div class="constellation">
+      <div class="woven-moon">
+        <h2 id="woven-title">
+          <span>{language === 'ja' ? '綴られた' : 'Sounds Woven'}</span>
+          <span>{language === 'ja' ? '音たち' : 'Together'}</span>
+        </h2>
+      </div>
+
+      {works.map((work) => (
+        <article class={`work-star work-star--${work.id}`}>
+          <button
+            class="work-trigger"
+            type="button"
+            aria-label={`${pageCopy.open}: ${work.title}`}
+            data-work-trigger
+            data-title={work.title}
+            data-copy={work.copy}
+            data-vocal={work.vocal}
+            data-image={work.image}
+            data-url={work.url}
+          >
+            <img
+              src={work.image}
+              alt=""
+              width="1400"
+              height="1400"
+              loading="lazy"
+              decoding="async"
+            />
+          </button>
+          <h3>{work.title}</h3>
+        </article>
+      ))}
+    </div>
+
+    <a
+      class="more-sounds"
+      href="https://soundcloud.com/lennyxcrew"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {pageCopy.more}
+    </a>
+  </section>
+
+  <dialog class="work-dialog" data-work-dialog aria-labelledby="work-dialog-title">
+    <button
+      class="dialog-close"
+      type="button"
+      aria-label={pageCopy.close}
+      data-dialog-close
+    >×</button>
+
+    <div class="work-reveal">
+      <div class="reveal-artwork">
+        <img data-dialog-image src="" alt="" width="1400" height="1400" />
+      </div>
+      <div class="reveal-copy">
+        <h2 id="work-dialog-title" data-dialog-title></h2>
+        <p class="work-line" data-dialog-copy></p>
+        <p class="work-vocal">Vocal — <span data-dialog-vocal></span></p>
+        <a
+          class="listen-link"
+          data-dialog-link
+          href=""
+          target="_blank"
+          rel="noopener noreferrer"
+        >{pageCopy.listen}</a>
+      </div>
+    </div>
+  </dialog>
 </BaseLayout>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-work-dialog]');
+  const triggers = document.querySelectorAll<HTMLButtonElement>('[data-work-trigger]');
+  const closeButton = document.querySelector<HTMLButtonElement>('[data-dialog-close]');
+  const dialogImage = document.querySelector<HTMLImageElement>('[data-dialog-image]');
+  const dialogTitle = document.querySelector<HTMLElement>('[data-dialog-title]');
+  const dialogCopy = document.querySelector<HTMLElement>('[data-dialog-copy]');
+  const dialogVocal = document.querySelector<HTMLElement>('[data-dialog-vocal]');
+  const dialogLink = document.querySelector<HTMLAnchorElement>('[data-dialog-link]');
+  let returnFocus: HTMLButtonElement | null = null;
+
+  const closeDialog = () => {
+    if (!dialog?.open) return;
+    dialog.close();
+  };
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      if (!dialog || !dialogImage || !dialogTitle || !dialogCopy || !dialogVocal || !dialogLink) return;
+
+      const { title, copy, vocal, image, url } = trigger.dataset;
+      if (!title || !copy || !vocal || !image || !url) return;
+
+      returnFocus = trigger;
+      dialogImage.src = image;
+      dialogImage.alt = title;
+      dialogTitle.textContent = title;
+      dialogCopy.textContent = copy;
+      dialogVocal.textContent = vocal;
+      dialogLink.href = url;
+      dialog.showModal();
+    });
+  });
+
+  closeButton?.addEventListener('click', closeDialog);
+
+  dialog?.addEventListener('click', (event) => {
+    if (event.target === dialog) closeDialog();
+  });
+
+  dialog?.addEventListener('close', () => {
+    returnFocus?.focus();
+    returnFocus = null;
+  });
+</script>
 
 <style>
   .music-hero {
@@ -70,10 +257,282 @@ const labels = ui[language];
     letter-spacing: 0.035em;
   }
 
-  .music-hero p:last-child {
-    margin-top: 0.6rem;
-    color: #c8d6dc;
-    font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+  .music-collection {
+    position: relative;
+    width: 100vw;
+    max-width: none;
+    min-height: 54rem;
+    margin-left: calc(50% - 50vw);
+    padding: clamp(5rem, 10vw, 9rem) 1.5rem clamp(5rem, 9vw, 8rem);
+    overflow: hidden;
+    text-align: center;
+    background:
+      radial-gradient(circle at 50% 42%, rgb(34 65 94 / 22%), transparent 31rem),
+      linear-gradient(180deg, #020812 0%, #030b18 48%, #020711 100%);
+  }
+
+  .constellation {
+    position: relative;
+    width: min(100%, 66rem);
+    height: 40rem;
+    margin: 0 auto;
+  }
+
+  .woven-moon {
+    position: absolute;
+    z-index: 1;
+    top: 52%;
+    left: 50%;
+    display: grid;
+    width: 12rem;
+    aspect-ratio: 1;
+    place-items: center;
+    padding: 1.5rem;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background:
+      radial-gradient(circle at 37% 32%, rgb(255 253 229 / 25%) 0 7%, transparent 24%),
+      radial-gradient(circle at 62% 67%, rgb(177 163 119 / 13%) 0 10%, transparent 31%),
+      radial-gradient(circle, rgb(247 242 211 / 88%) 0%, rgb(226 218 178 / 73%) 55%, rgb(206 210 197 / 35%) 72%, transparent 75%);
+    box-shadow:
+      0 0 2.6rem rgb(229 223 186 / 18%),
+      0 0 6rem rgb(151 190 217 / 9%);
+  }
+
+  .woven-moon h2 {
+    margin: 0;
+    color: #27313b;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: clamp(1rem, 1.8vw, 1.25rem);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    line-height: 1.65;
+    text-shadow: 0 1px 1rem rgb(255 255 255 / 58%);
+  }
+
+  .woven-moon h2 span {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .work-star {
+    position: absolute;
+    z-index: 2;
+    width: 15rem;
+    transform: translate(-50%, -50%);
+    color: #e6edf0;
+    text-align: center;
+  }
+
+  .work-star--calling { top: 13%; left: 50%; }
+  .work-star--mitama { top: 39%; left: 18%; }
+  .work-star--shine { top: 39%; left: 82%; }
+  .work-star--toki { top: 79%; left: 27%; }
+  .work-star--time-left { top: 79%; left: 73%; }
+
+  .work-trigger {
+    --cover-size: 8.125rem;
+    display: block;
+    width: var(--cover-size);
+    min-width: var(--cover-size);
+    max-width: var(--cover-size);
+    height: var(--cover-size);
+    min-height: var(--cover-size);
+    max-height: var(--cover-size);
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0.18rem;
+    overflow: hidden;
+    cursor: pointer;
+    background: transparent;
+    box-shadow: 0 0.8rem 2.2rem rgb(0 0 0 / 32%);
+    transition: transform 450ms ease, box-shadow 450ms ease, filter 450ms ease;
+  }
+
+  .work-trigger img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .work-trigger:is(:hover, :focus-visible) {
+    outline: none;
+    transform: scale(1.055);
+    filter: brightness(1.06);
+    box-shadow:
+      0 0 1.9rem rgb(166 213 235 / 24%),
+      0 1rem 2.5rem rgb(0 0 0 / 38%);
+  }
+
+  .work-trigger:focus-visible {
+    outline: 1px solid rgb(218 237 245 / 70%);
+    outline-offset: 0.4rem;
+  }
+
+  .work-star h3 {
+    margin: 0.85rem 0 0;
+    color: #dce7eb;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: 0.93rem;
+    font-weight: 400;
+    letter-spacing: 0.035em;
+    line-height: 1.5;
+    text-shadow: 0 2px 1rem rgb(0 0 0 / 82%);
+  }
+
+  .more-sounds {
+    display: inline-block;
+    margin-top: 2.5rem;
+    color: #aebfc7;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    text-decoration-color: rgb(174 191 199 / 32%);
+    text-underline-offset: 0.4rem;
+    transition: color 300ms ease, text-decoration-color 300ms ease;
+  }
+
+  .more-sounds:is(:hover, :focus-visible) {
+    color: #e3edf0;
+    text-decoration-color: rgb(227 237 240 / 72%);
+  }
+
+  .work-dialog {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow-y: auto;
+    color: #eef3f2;
+    background:
+      radial-gradient(circle at 38% 48%, rgb(33 67 94 / 23%), transparent 31rem),
+      rgb(1 6 15 / 95%);
+  }
+
+  .work-dialog::backdrop {
+    background: rgb(0 4 12 / 82%);
+    backdrop-filter: blur(4px);
+  }
+
+  .work-dialog[open] {
+    animation: night-in 420ms ease both;
+  }
+
+  .dialog-close {
+    position: fixed;
+    z-index: 3;
+    top: clamp(1.2rem, 3vw, 2.2rem);
+    right: clamp(1.2rem, 3vw, 2.2rem);
+    display: grid;
+    width: 2.7rem;
+    aspect-ratio: 1;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgb(215 232 238 / 20%);
+    border-radius: 50%;
+    color: #c7d3d7;
+    font-size: 1.4rem;
+    font-weight: 300;
+    cursor: pointer;
+    background: rgb(2 10 22 / 30%);
+    transition: border-color 250ms ease, color 250ms ease, background-color 250ms ease;
+  }
+
+  .dialog-close:is(:hover, :focus-visible) {
+    border-color: rgb(215 232 238 / 55%);
+    color: #fff;
+    outline: none;
+    background: rgb(21 42 61 / 52%);
+  }
+
+  .work-reveal {
+    display: grid;
+    grid-template-columns: minmax(18rem, 25rem) minmax(17rem, 27rem);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: center;
+    width: min(100% - 3rem, 62rem);
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 5rem 0;
+  }
+
+  .reveal-artwork {
+    width: min(100%, 25rem);
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+
+  .reveal-artwork img {
+    display: block;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    box-shadow:
+      0 0 3rem rgb(126 183 212 / 14%),
+      0 2rem 5rem rgb(0 0 0 / 46%);
+  }
+
+  .reveal-copy {
+    text-align: left;
+  }
+
+  .reveal-copy h2 {
+    margin: 0 0 2rem;
+    color: #f0eee5;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: clamp(1.7rem, 4vw, 2.7rem);
+    font-weight: 400;
+    letter-spacing: 0.035em;
+    line-height: 1.4;
+  }
+
+  .work-line {
+    margin: 0 0 1.25rem;
+    color: #d4e0e4;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    letter-spacing: 0.035em;
+    line-height: 1.9;
+  }
+
+  .work-vocal {
+    margin: 0 0 2.4rem;
+    color: #9eb0b9;
+    font-size: 0.92rem;
+    letter-spacing: 0.08em;
+  }
+
+  .listen-link {
+    display: inline-block;
+    color: #e4edf0;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    text-decoration-color: rgb(228 237 240 / 38%);
+    text-underline-offset: 0.45rem;
+    transition: color 250ms ease, text-shadow 250ms ease, text-decoration-color 250ms ease;
+  }
+
+  .listen-link:is(:hover, :focus-visible) {
+    color: #fff;
+    text-decoration-color: rgb(255 255 255 / 78%);
+    text-shadow: 0 0 1.2rem rgb(168 216 237 / 38%);
+  }
+
+  @keyframes night-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   @media (max-width: 48rem) {
@@ -87,6 +546,101 @@ const labels = ui[language];
 
     .music-hero h1 {
       font-size: clamp(2.7rem, 14vw, 4rem);
+    }
+
+    .music-collection {
+      min-height: 0;
+      padding: 5.5rem 1.25rem 6rem;
+    }
+
+    .constellation {
+      display: flex;
+      width: 100%;
+      height: auto;
+      flex-direction: column;
+      align-items: center;
+      gap: 3.5rem;
+    }
+
+    .woven-moon,
+    .work-star {
+      position: relative;
+      inset: auto;
+      transform: none;
+    }
+
+    .woven-moon {
+      order: 0;
+      width: 10.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .work-star {
+      width: min(100%, 20rem);
+    }
+
+    .work-star--calling { order: 1; }
+    .work-star--mitama { order: 2; }
+    .work-star--shine { order: 3; }
+    .work-star--toki { order: 4; }
+    .work-star--time-left { order: 5; }
+
+    .work-trigger {
+      --cover-size: clamp(9.5rem, 45vw, 12rem);
+    }
+
+    .work-star h3 {
+      margin-top: 1rem;
+      font-size: 1rem;
+    }
+
+    .more-sounds {
+      margin-top: 5rem;
+    }
+
+    .work-reveal {
+      display: flex;
+      width: min(100% - 2.5rem, 31rem);
+      min-height: 100%;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2.2rem;
+      padding: 5.5rem 0 4rem;
+    }
+
+    .reveal-artwork {
+      width: min(100%, 22rem);
+    }
+
+    .reveal-copy {
+      width: min(100%, 22rem);
+      text-align: center;
+    }
+
+    .reveal-copy h2 {
+      margin-bottom: 1.35rem;
+      font-size: clamp(1.55rem, 7vw, 2.1rem);
+    }
+
+    .work-line {
+      line-height: 1.75;
+    }
+
+    .work-vocal {
+      margin-bottom: 1.8rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .work-trigger,
+    .more-sounds,
+    .dialog-close,
+    .listen-link {
+      transition: none;
+    }
+
+    .work-dialog[open] {
+      animation: none;
     }
   }
 </style>

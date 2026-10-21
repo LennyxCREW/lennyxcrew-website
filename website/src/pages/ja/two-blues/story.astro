@@ -1,0 +1,196 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  language="ja"
+  title="THE STORY — TWO BLUES"
+  description="小樽の夜の偶然から二つのブルースが生まれるまでの物語。"
+>
+  <article class="story-page">
+    <header class="story-header">
+      <p class="story-label">TWO BLUES</p>
+      <h1>THE STORY</h1>
+      <p class="story-lead">すべては、小樽の夜の出会いから。</p>
+    </header>
+
+    <div class="story-body">
+      <p>小樽の「Rock City Bar レノンセンス」。</p>
+
+      <p>その夜、偶然隣り合わせた二人の男がいた。</p>
+
+      <p>小樽のLenny.Jと、大阪から訪れた車田宏章。</p>
+
+      <p>二人を引き合わせたのは、店のマスターだった。</p>
+
+      <p>レノンセンスのために曲を作ったLenny.Jを、車田に紹介したのだ。</p>
+
+      <p>大阪のブルースが好きだというLenny.Jの話をきっかけに、二人は音楽談義に花を咲かせた。</p>
+
+      <p>やがて車田は、自身の会社の創業40周年を記念して映画を制作すること、そして、その挿入歌を作る人を探していることを打ち明けた。</p>
+
+      <p>車田はその場で、自ら書いた一編の詩をLenny.Jのスマートフォンに送った。</p>
+
+      <p>「この詩を、曲にできるだろうか」</p>
+
+      <p>その詩から生まれたのが、『60からのロスタイム』だった。</p>
+
+      <p>曲は映画の挿入歌として採用され、さらにもう一曲の制作へとつながっていく。</p>
+
+      <p>そうして生まれたのが、『孤独と反省』。</p>
+
+      <p class="story-closing"><strong>小樽の夜の偶然から、二つのブルースが生まれた。</strong></p>
+    </div>
+
+    <nav class="story-return" aria-label="TWO BLUESへ戻る">
+      <a href="/ja/two-blues/">
+        <span>TWO BLUES →</span>
+        <small>二つのブルースを聴く</small>
+      </a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .story-page {
+    position: relative;
+    width: 100vw;
+    max-width: none;
+    min-height: calc(100vh - 5rem);
+    margin-left: calc(50% - 50vw);
+    overflow: hidden;
+    color: #dadddf;
+    background:
+      radial-gradient(circle at 21% 18%, rgb(170 105 43 / 11%), transparent 28rem),
+      radial-gradient(circle at 82% 73%, rgb(34 75 117 / 14%), transparent 34rem),
+      linear-gradient(180deg, #030812 0%, #07101c 55%, #030913 100%);
+  }
+
+  .story-page::before {
+    position: absolute;
+    inset: 0;
+    content: '';
+    pointer-events: none;
+    opacity: 0.26;
+    background-image:
+      radial-gradient(circle at 12% 19%, white 0 1px, transparent 1.3px),
+      radial-gradient(circle at 81% 9%, white 0 1px, transparent 1.3px),
+      radial-gradient(circle at 63% 38%, white 0 1px, transparent 1.3px);
+    background-size: 31rem 29rem, 37rem 43rem, 47rem 39rem;
+  }
+
+  .story-header,
+  .story-body,
+  .story-return {
+    position: relative;
+    z-index: 1;
+    width: min(100% - 3rem, 44rem);
+    margin-inline: auto;
+  }
+
+  .story-header {
+    padding: clamp(6rem, 13vw, 10rem) 0 clamp(4rem, 9vw, 7rem);
+    border-bottom: 1px solid rgb(214 188 139 / 16%);
+    text-align: center;
+  }
+
+  .story-label {
+    margin: 0 0 1.2rem;
+    color: #aa9672;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+  }
+
+  .story-header h1 {
+    margin: 0;
+    color: #eee9dd;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(3rem, 9vw, 6rem);
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    line-height: 1.1;
+  }
+
+  .story-lead {
+    margin: 2.5rem 0 0;
+    color: #d4c6aa;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+    letter-spacing: 0.08em;
+  }
+
+  .story-body {
+    padding: clamp(4.5rem, 10vw, 8rem) 0;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: clamp(1rem, 2vw, 1.12rem);
+    letter-spacing: 0.035em;
+    line-height: 2.25;
+  }
+
+  .story-body p {
+    margin: 0 0 2rem;
+  }
+
+  .story-body p:nth-child(3),
+  .story-body p:nth-child(6),
+  .story-body p:nth-child(9),
+  .story-body p:nth-child(12) {
+    margin-bottom: clamp(3.4rem, 7vw, 5rem);
+  }
+
+  .story-closing {
+    margin-top: clamp(4.5rem, 9vw, 7rem) !important;
+    color: #eee4cf;
+    font-size: clamp(1.08rem, 2.5vw, 1.35rem);
+    letter-spacing: 0.06em;
+  }
+
+  .story-return {
+    padding: 0 0 clamp(7rem, 14vw, 11rem);
+  }
+
+  .story-return a {
+    display: inline-flex;
+    min-height: 3.25rem;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.4rem 0;
+    color: #dcc18c;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    text-decoration: none;
+  }
+
+  .story-return span {
+    letter-spacing: 0.13em;
+    text-decoration: underline;
+    text-decoration-color: rgb(220 193 140 / 34%);
+    text-underline-offset: 0.45rem;
+  }
+
+  .story-return small {
+    margin-top: 0.55rem;
+    color: #8f9ba4;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+  }
+
+  .story-return a:is(:hover, :focus-visible) span {
+    color: #f2d8a5;
+    text-shadow: 0 0 1.2rem rgb(197 135 62 / 32%);
+  }
+
+  @media (max-width: 42rem) {
+    .story-header,
+    .story-body,
+    .story-return { width: min(100% - 2.5rem, 44rem); }
+
+    .story-header h1 {
+      font-size: clamp(2.7rem, 15vw, 4.4rem);
+      letter-spacing: 0.08em;
+    }
+
+    .story-body {
+      line-height: 2.1;
+    }
+  }
+</style>

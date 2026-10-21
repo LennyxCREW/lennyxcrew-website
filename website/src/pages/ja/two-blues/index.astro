@@ -1,0 +1,417 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const records = [
+  {
+    id: 'sixty',
+    title: '60からのロスタイム',
+    image: '/images/two-blues/record-60.webp',
+    fallback: '/images/two-blues/record-60.png',
+    tone: 'amber',
+  },
+  {
+    id: 'kodoku',
+    title: '孤独と反省',
+    image: '/images/two-blues/record-kodoku.webp',
+    fallback: '/images/two-blues/record-kodoku.png',
+    tone: 'blue',
+  },
+];
+---
+
+<BaseLayout
+  language="ja"
+  title="TWO BLUES"
+  description="小樽の夜の出会いから生まれた、哀斗（AITO）が歌う二つのブルース。"
+>
+  <article class="two-blues-page">
+    <header class="two-blues-hero">
+      <p class="project-label">LennyxCREW presents</p>
+      <h1>TWO BLUES</h1>
+      <div class="opening-copy">
+        <p><strong>2026年3月26日。</strong></p>
+        <p class="opening-location"><strong><span>小樽の「Rock City Bar </span><span>レノンセンス」から、</span><span>すべては始まった……</span></strong></p>
+      </div>
+    </header>
+
+    <figure class="postcard-visual">
+      <picture>
+        <source srcset="/images/two-blues/postcard-front.webp" type="image/webp" />
+        <img
+          src="/images/two-blues/postcard-front.png"
+          alt="哀斗と『60からのロスタイム』『孤独と反省』を紹介するTWO BLUESのポストカード"
+          width="1414"
+          height="2000"
+          decoding="async"
+        />
+      </picture>
+    </figure>
+
+    <section class="record-section" aria-labelledby="songs-title">
+      <div class="section-heading">
+        <p class="section-kicker">Two songs, one encounter</p>
+        <h2 id="songs-title">二つのブルース</h2>
+      </div>
+
+      <div class="record-grid">
+        {records.map((record) => (
+          <article class={`record-card record-card--${record.tone}`}>
+            <div class="record-visual">
+              <picture>
+                <source srcset={record.image} type="image/webp" />
+                <img
+                  src={record.fallback}
+                  alt=""
+                  width="900"
+                  height="900"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+              <div class="record-label" aria-hidden="true">
+                <span>{record.title}</span>
+                <small>哀斗 / AITO</small>
+              </div>
+            </div>
+            <h3>『{record.title}』</h3>
+            <p class="artist">Vocal：哀斗（AITO）</p>
+            <p class="release-status" aria-label={`${record.title}は配信準備中です`}>配信準備中</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="story-entry" aria-labelledby="story-entry-title">
+      <p class="section-kicker">The night in Otaru</p>
+      <h2 id="story-entry-title"><span>その出会いには、</span><span>続きがある。</span></h2>
+      <p>偶然隣り合わせた二人の男。ひとつの詩。そして、二つのブルースが生まれた夜。</p>
+      <a href="/ja/two-blues/story/">THE STORY を読む →</a>
+    </section>
+
+    <footer class="film-credit">
+      <p>映画『あさぎの空へ ～社長は野武士～』</p>
+      <p>2027年公開予定</p>
+      <p>挿入歌：<br />『60からのロスタイム』<br />『孤独と反省』</p>
+      <p>作詞：車田宏章<br />作曲：Lenny.J</p>
+      <p>Vocal：哀斗（AITO）</p>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .two-blues-page {
+    position: relative;
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
+    overflow: hidden;
+    color: #ebe8df;
+    background:
+      radial-gradient(circle at 16% 25%, rgb(152 92 34 / 12%), transparent 29rem),
+      radial-gradient(circle at 86% 52%, rgb(34 79 126 / 15%), transparent 34rem),
+      linear-gradient(180deg, #030912 0%, #07101c 38%, #030914 100%);
+  }
+
+  .two-blues-page::before {
+    position: absolute;
+    inset: 0;
+    content: '';
+    pointer-events: none;
+    opacity: 0.34;
+    background-image:
+      radial-gradient(circle at 18% 12%, rgb(255 255 255 / 55%) 0 1px, transparent 1.4px),
+      radial-gradient(circle at 73% 7%, rgb(255 255 255 / 42%) 0 1px, transparent 1.3px),
+      radial-gradient(circle at 91% 31%, rgb(255 255 255 / 32%) 0 1px, transparent 1.4px),
+      radial-gradient(circle at 7% 61%, rgb(255 255 255 / 28%) 0 1px, transparent 1.3px);
+    background-size: 23rem 19rem, 31rem 27rem, 29rem 37rem, 41rem 33rem;
+  }
+
+  .two-blues-hero,
+  .record-section,
+  .story-entry,
+  .film-credit {
+    position: relative;
+    z-index: 1;
+  }
+
+  .two-blues-hero {
+    width: min(100% - 3rem, 62rem);
+    margin: 0 auto;
+    padding: clamp(6rem, 12vw, 10rem) 0 clamp(3.5rem, 7vw, 6rem);
+    text-align: center;
+  }
+
+  .project-label,
+  .section-kicker {
+    margin: 0 0 1.1rem;
+    color: #ad9a78;
+    font-size: 0.75rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .two-blues-hero h1 {
+    margin: 0;
+    color: #eee7d7;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(3.2rem, 10vw, 7.5rem);
+    font-weight: 400;
+    letter-spacing: 0.13em;
+    line-height: 1;
+    text-shadow: 0 0 2.8rem rgb(184 130 68 / 17%);
+  }
+
+  .opening-copy {
+    margin-top: clamp(3rem, 7vw, 5rem);
+    color: #d8d9db;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: clamp(1rem, 2.2vw, 1.25rem);
+    letter-spacing: 0.06em;
+    line-height: 2;
+  }
+
+  .opening-copy p { margin: 0.35rem 0; }
+
+  .postcard-visual {
+    position: relative;
+    z-index: 1;
+    width: min(100% - 3rem, 43rem);
+    margin: 0 auto clamp(7rem, 14vw, 12rem);
+  }
+
+  .postcard-visual::before {
+    position: absolute;
+    z-index: -1;
+    inset: 8% -8%;
+    border-radius: 50%;
+    content: '';
+    background: radial-gradient(ellipse, rgb(190 112 43 / 18%), transparent 68%);
+    filter: blur(1.2rem);
+  }
+
+  .postcard-visual img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid rgb(238 202 144 / 14%);
+    box-shadow: 0 2.5rem 6rem rgb(0 0 0 / 54%);
+  }
+
+  .record-section {
+    width: min(100% - 3rem, 72rem);
+    margin: 0 auto;
+    padding-bottom: clamp(7rem, 14vw, 12rem);
+  }
+
+  .section-heading { text-align: center; }
+
+  .section-heading h2,
+  .story-entry h2 {
+    margin: 0;
+    color: #ece8dc;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+  }
+
+  .record-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2.5rem, 7vw, 7rem);
+    margin-top: clamp(3.5rem, 8vw, 6.5rem);
+  }
+
+  .record-card { text-align: center; }
+
+  .record-visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    transition: filter 500ms ease, transform 500ms ease;
+  }
+
+  .record-visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2rem 2.5rem rgb(0 0 0 / 45%));
+  }
+
+  .record-card--amber:hover .record-visual {
+    filter: drop-shadow(0 0 2rem rgb(202 137 65 / 26%));
+    transform: translateY(-0.2rem);
+  }
+
+  .record-card--blue:hover .record-visual {
+    filter: drop-shadow(0 0 2rem rgb(73 126 184 / 29%));
+    transform: translateY(-0.2rem);
+  }
+
+  .record-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32%;
+    aspect-ratio: 1;
+    padding: 1.1rem;
+    transform: translate(-50%, -50%);
+    color: #15110c;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    line-height: 1.35;
+    text-shadow: 0 1px 1px rgb(255 255 255 / 25%);
+  }
+
+  .record-card--blue .record-label { color: #dce7ef; }
+
+  .record-label span {
+    position: absolute;
+    top: 27%;
+    left: 50%;
+    font-size: clamp(0.72rem, 1.35vw, 1.05rem);
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    transform: translate(-50%, -50%);
+  }
+
+  .record-label small {
+    position: absolute;
+    bottom: 24%;
+    left: 50%;
+    font-size: clamp(0.52rem, 0.85vw, 0.7rem);
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    white-space: nowrap;
+    transform: translate(-50%, 50%);
+  }
+
+  .record-card h3 {
+    margin: 1.6rem 0 0.45rem;
+    color: #eee9de;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: clamp(1.1rem, 2.4vw, 1.55rem);
+    font-weight: 400;
+    letter-spacing: 0.045em;
+  }
+
+  .artist {
+    margin: 0;
+    color: #aeb7bf;
+    font-size: 0.9rem;
+    letter-spacing: 0.065em;
+  }
+
+  .release-status {
+    display: inline-block;
+    margin: 1.2rem 0 0;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid rgb(210 218 225 / 16%);
+    color: #89959f;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+  }
+
+  .story-entry {
+    width: min(100% - 3rem, 58rem);
+    margin: 0 auto;
+    padding: clamp(5rem, 10vw, 8rem) clamp(1rem, 3vw, 2rem);
+    border-top: 1px solid rgb(220 194 147 / 17%);
+    border-bottom: 1px solid rgb(103 145 183 / 16%);
+    text-align: center;
+    background: radial-gradient(circle, rgb(31 54 78 / 18%), transparent 70%);
+  }
+
+  .story-entry h2 {
+    overflow-wrap: normal;
+    white-space: nowrap;
+    word-break: keep-all;
+  }
+
+  .story-entry > p:not(.section-kicker) {
+    max-width: 38rem;
+    margin: 2rem auto;
+    color: #b9c2c9;
+    line-height: 2;
+  }
+
+  .story-entry a {
+    display: inline-block;
+    min-height: 2.75rem;
+    padding: 0.65rem 0.2rem;
+    color: #e2c68e;
+    font-family: Georgia, 'Times New Roman', serif;
+    letter-spacing: 0.1em;
+    text-decoration-color: rgb(226 198 142 / 35%);
+    text-underline-offset: 0.45rem;
+  }
+
+  .story-entry a:is(:hover, :focus-visible) {
+    color: #f6deb0;
+    text-shadow: 0 0 1.3rem rgb(204 145 69 / 35%);
+  }
+
+  .film-credit {
+    width: min(100% - 3rem, 38rem);
+    margin: 0 auto;
+    padding: clamp(6rem, 12vw, 10rem) 0;
+    color: #919da6;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: 0.9rem;
+    line-height: 1.9;
+    text-align: center;
+  }
+
+  .film-credit p { margin: 0 0 1rem; }
+  .film-credit p:first-child { color: #c8c5bc; font-size: 1rem; }
+
+  @media (max-width: 42rem) {
+    .two-blues-hero,
+    .record-section,
+    .story-entry,
+    .film-credit { width: min(100% - 2rem, 72rem); }
+
+    .two-blues-hero h1 {
+      font-size: clamp(2.65rem, 14vw, 4.6rem);
+      letter-spacing: 0.08em;
+    }
+
+    .opening-copy { text-align: left; }
+
+    .opening-location span,
+    .story-entry h2 span {
+      display: block;
+    }
+
+    .postcard-visual {
+      width: min(100% - 2rem, 31rem);
+      margin-bottom: 7rem;
+    }
+
+    .record-grid {
+      grid-template-columns: 1fr;
+      gap: 5.5rem;
+    }
+
+    .record-card { width: min(100%, 27rem); margin: 0 auto; }
+
+    .record-label {
+      padding: 0.7rem;
+    }
+
+    .record-label span { font-size: clamp(0.67rem, 3.1vw, 0.96rem); }
+    .record-label small { font-size: clamp(0.48rem, 2vw, 0.65rem); }
+
+    .story-entry { padding-inline: 0.5rem; }
+    .story-entry h2 {
+      overflow-wrap: anywhere;
+      white-space: normal;
+      word-break: normal;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .record-visual { transition: none; }
+  }
+</style>

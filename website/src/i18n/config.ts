@@ -15,6 +15,7 @@ export const navigation = [
   { slug: 'manifesto', label: { ja: 'Manifesto', en: 'Manifesto' }, languages: ['ja', 'en'] },
   { slug: 'credo', label: { ja: 'Credo', en: 'Credo' }, languages: ['ja', 'en'] },
   { slug: 'music', label: { ja: 'Music', en: 'Music' }, languages: ['ja', 'en'] },
+  { slug: 'two-blues', label: { ja: 'TWO BLUES', en: 'TWO BLUES' }, languages: ['ja'] },
   { slug: 'crew', label: { ja: 'CREW', en: 'CREW' }, languages: ['ja'] },
   { slug: 'contact', label: { ja: 'Contact', en: 'Contact' }, languages: ['ja'] },
 ] as const;
@@ -28,7 +29,7 @@ export function getLocalizedPath(language: Language, slug = ''): string {
 }
 
 export function switchLanguage(pathname: string, language: Language): string {
-  if (/^\/ja\/(?:crew|rooms|contact)(?:\/|$)/.test(pathname) && language === 'en') {
+  if (/^\/ja\/(?:crew|rooms|contact|two-blues)(?:\/|$)/.test(pathname) && language === 'en') {
     return getLocalizedPath('en');
   }
 

@@ -131,6 +131,13 @@ const works = [
     >
       {pageCopy.more}
     </a>
+
+    {language === 'ja' && (
+      <aside class="two-blues-entry" aria-label="TWO BLUES 特設ページ">
+        <p>映画挿入歌として生まれた、二つのブルース。</p>
+        <a href="/ja/two-blues/">TWO BLUES →</a>
+      </aside>
+    )}
   </section>
 
   <dialog class="work-dialog" data-work-dialog aria-labelledby="work-dialog-title">
@@ -398,6 +405,34 @@ const works = [
   .more-sounds:is(:hover, :focus-visible) {
     color: #e3edf0;
     text-decoration-color: rgb(227 237 240 / 72%);
+  }
+
+  .two-blues-entry {
+    width: min(100%, 34rem);
+    margin: clamp(4rem, 8vw, 6rem) auto 0;
+    padding-top: 2.2rem;
+    border-top: 1px solid rgb(196 169 119 / 18%);
+    color: #9eabb2;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+  }
+
+  .two-blues-entry p {
+    margin: 0 0 0.85rem;
+    font-size: 0.92rem;
+    letter-spacing: 0.055em;
+  }
+
+  .two-blues-entry a {
+    color: #d9c394;
+    letter-spacing: 0.12em;
+    text-decoration-color: rgb(217 195 148 / 34%);
+    text-underline-offset: 0.45rem;
+    transition: color 250ms ease, text-shadow 250ms ease;
+  }
+
+  .two-blues-entry a:is(:hover, :focus-visible) {
+    color: #f3dfaf;
+    text-shadow: 0 0 1.2rem rgb(211 161 84 / 32%);
   }
 
   .work-dialog {

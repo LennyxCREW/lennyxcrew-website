@@ -1,0 +1,160 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props {
+  title: string;
+  stanzas: string[][];
+  tone: 'amber' | 'blue';
+  listenUrl: string;
+}
+
+const { title, stanzas, tone, listenUrl } = Astro.props;
+---
+
+<BaseLayout
+  language="ja"
+  title={`${title}｜歌詞 — TWO BLUES`}
+  description={`哀斗（AITO）が歌う映画挿入歌『${title}』の歌詞。`}
+>
+  <article class={`lyrics-page lyrics-page--${tone}`}>
+    <header class="lyrics-header">
+      <p class="lyrics-label">TWO BLUES — LYRICS</p>
+      <h1>{title === '60からのロスタイム' ? <><span class="title-part">60からの</span><wbr /><span class="title-part">ロスタイム</span></> : title}</h1>
+    </header>
+
+    <div class="lyrics-body">
+      {stanzas.map((stanza) => (
+        <p>{stanza.map((line, index) => <>{line}{index < stanza.length - 1 && <br />}</>)}</p>
+      ))}
+    </div>
+
+    <nav class="lyrics-actions" aria-label="楽曲とTWO BLUESへのリンク">
+      <a class="lyrics-listen" href={listenUrl} target="_blank" rel="noopener noreferrer">配信サイトで聴く ↗</a>
+      <a href="/ja/two-blues/">← TWO BLUESへ戻る</a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .lyrics-page {
+    position: relative;
+    width: 100vw;
+    max-width: none;
+    min-height: calc(100vh - 5rem);
+    margin-left: calc(50% - 50vw);
+    overflow: hidden;
+    color: #dadddf;
+    background:
+      radial-gradient(circle at 20% 17%, var(--lyrics-glow), transparent 29rem),
+      radial-gradient(circle at 83% 72%, rgb(34 75 117 / 12%), transparent 35rem),
+      linear-gradient(180deg, #030812 0%, #07101c 55%, #030913 100%);
+  }
+
+  .lyrics-page--amber { --lyrics-glow: rgb(170 105 43 / 12%); --lyrics-accent: #d8bc86; }
+  .lyrics-page--blue { --lyrics-glow: rgb(42 91 138 / 14%); --lyrics-accent: #adcbe3; }
+
+  .lyrics-page::before {
+    position: absolute;
+    inset: 0;
+    content: '';
+    pointer-events: none;
+    opacity: 0.23;
+    background-image:
+      radial-gradient(circle at 13% 18%, white 0 1px, transparent 1.3px),
+      radial-gradient(circle at 82% 10%, white 0 1px, transparent 1.3px),
+      radial-gradient(circle at 67% 42%, white 0 1px, transparent 1.3px);
+    background-size: 31rem 29rem, 37rem 43rem, 47rem 39rem;
+  }
+
+  .lyrics-header,
+  .lyrics-body,
+  .lyrics-actions {
+    position: relative;
+    z-index: 1;
+    width: min(100% - 3rem, 37rem);
+    margin-inline: auto;
+  }
+
+  .lyrics-header {
+    padding: clamp(6rem, 13vw, 10rem) 0 clamp(4rem, 9vw, 6.5rem);
+    border-bottom: 1px solid rgb(214 188 139 / 15%);
+    text-align: center;
+  }
+
+  .lyrics-label {
+    margin: 0 0 1.4rem;
+    color: #9d927f;
+    font-size: 0.72rem;
+    letter-spacing: 0.23em;
+  }
+
+  .lyrics-header h1 {
+    margin: 0;
+    color: #eee9dd;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: clamp(2rem, 5.5vw, 3.7rem);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    line-height: 1.45;
+    text-shadow: 0 0 2rem color-mix(in srgb, var(--lyrics-accent) 18%, transparent);
+  }
+
+  .lyrics-body {
+    padding: clamp(4.5rem, 10vw, 8rem) 0 clamp(3rem, 7vw, 5rem);
+    color: #dde0e1;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    letter-spacing: 0.045em;
+    line-height: 2.15;
+  }
+
+  .title-part { display: inline-block; white-space: nowrap; }
+
+  .lyrics-body p {
+    margin: 0 0 clamp(2.5rem, 6vw, 3.8rem);
+  }
+
+  .lyrics-body p:last-child { margin-bottom: 0; }
+
+  .lyrics-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2.5rem;
+    padding: 0 0 clamp(7rem, 14vw, 11rem);
+  }
+
+  .lyrics-actions a {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    padding: 0.45rem 0;
+    color: var(--lyrics-accent);
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    letter-spacing: 0.09em;
+    text-decoration-color: color-mix(in srgb, var(--lyrics-accent) 34%, transparent);
+    text-underline-offset: 0.45rem;
+  }
+
+  .lyrics-actions a:is(:hover, :focus-visible) {
+    color: #f0e0bd;
+    text-shadow: 0 0 1.2rem color-mix(in srgb, var(--lyrics-accent) 34%, transparent);
+  }
+
+  @media (max-width: 42rem) {
+    .lyrics-header,
+    .lyrics-body,
+    .lyrics-actions { width: min(100% - 2.5rem, 37rem); }
+
+    .lyrics-header { text-align: left; }
+
+    .lyrics-header h1 {
+      font-size: clamp(1.85rem, 9vw, 2.8rem);
+      letter-spacing: 0.055em;
+    }
+
+    .lyrics-body {
+      font-size: 1rem;
+      line-height: 2.05;
+    }
+  }
+</style>

@@ -5,6 +5,8 @@ const records = [
   {
     id: 'sixty',
     title: '60からのロスタイム',
+    lyrics: '/ja/two-blues/lyrics/60-loss-time/',
+    listen: 'https://linkco.re/ZSB87ppA',
     image: '/images/two-blues/record-60.webp',
     fallback: '/images/two-blues/record-60.png',
     tone: 'amber',
@@ -12,6 +14,8 @@ const records = [
   {
     id: 'kodoku',
     title: '孤独と反省',
+    lyrics: '/ja/two-blues/lyrics/kodoku-to-hansei/',
+    listen: 'https://linkco.re/dy8Bb5rS',
     image: '/images/two-blues/record-kodoku.webp',
     fallback: '/images/two-blues/record-kodoku.png',
     tone: 'blue',
@@ -75,7 +79,10 @@ const records = [
             </div>
             <h3>『{record.title}』</h3>
             <p class="artist">Vocal：哀斗（AITO）</p>
-            <p class="release-status" aria-label={`${record.title}は配信準備中です`}>配信準備中</p>
+            <p class="listen-entry">
+              <a href={record.listen} target="_blank" rel="noopener noreferrer">配信サイトで聴く ↗</a>
+            </p>
+            <p class="lyrics-entry"><a href={record.lyrics}>歌詞を読む →</a></p>
           </article>
         ))}
       </div>
@@ -85,7 +92,10 @@ const records = [
       <p class="section-kicker">The night in Otaru</p>
       <h2 id="story-entry-title"><span>その出会いには、</span><span>続きがある。</span></h2>
       <p>偶然隣り合わせた二人の男。ひとつの詩。そして、二つのブルースが生まれた夜。</p>
-      <a href="/ja/two-blues/story/">THE STORY を読む →</a>
+      <div class="story-links">
+        <a href="/ja/two-blues/story/">THE STORY を読む →</a>
+        <a href="/ja/two-blues/long-story/">二つのブルースが生まれるまで →</a>
+      </div>
     </section>
 
     <footer class="film-credit">
@@ -303,14 +313,48 @@ const records = [
     letter-spacing: 0.065em;
   }
 
-  .release-status {
-    display: inline-block;
+  .listen-entry,
+  .lyrics-entry {
     margin: 1.2rem 0 0;
-    padding: 0.4rem 0.85rem;
-    border: 1px solid rgb(210 218 225 / 16%);
-    color: #89959f;
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
+  }
+
+  .listen-entry a,
+  .lyrics-entry a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    padding: 0.45rem 0.2rem;
+    color: #d8c18f;
+    font-family: Georgia, 'Times New Roman', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-decoration-color: rgb(216 193 143 / 32%);
+    text-underline-offset: 0.4rem;
+  }
+
+  .listen-entry a {
+    padding-inline: 1rem;
+    border: 1px solid rgb(216 193 143 / 24%);
+    text-decoration: none;
+  }
+
+  .record-card--amber .listen-entry a:is(:hover, :focus-visible),
+  .record-card--amber .lyrics-entry a:is(:hover, :focus-visible) {
+    color: #f1d5a0;
+    text-shadow: 0 0 1.2rem rgb(202 137 65 / 35%);
+  }
+
+  .record-card--blue .listen-entry a:is(:hover, :focus-visible),
+  .record-card--blue .lyrics-entry a:is(:hover, :focus-visible) {
+    color: #c9dff2;
+    text-shadow: 0 0 1.2rem rgb(73 126 184 / 38%);
+  }
+
+  .story-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 2.4rem;
   }
 
   .story-entry {
@@ -404,6 +448,7 @@ const records = [
     .record-label small { font-size: clamp(0.48rem, 2vw, 0.65rem); }
 
     .story-entry { padding-inline: 0.5rem; }
+    .story-links { flex-direction: column; align-items: center; gap: 0.35rem; }
     .story-entry h2 {
       overflow-wrap: anywhere;
       white-space: normal;

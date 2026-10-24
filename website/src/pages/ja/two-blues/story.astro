@@ -42,10 +42,14 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
       <p class="story-closing"><strong>小樽の夜の偶然から、二つのブルースが生まれた。</strong></p>
     </div>
 
-    <nav class="story-return" aria-label="TWO BLUESへ戻る">
+    <nav class="story-return" aria-label="音楽と物語へのリンク">
       <a href="/ja/two-blues/">
         <span>TWO BLUES →</span>
         <small>二つのブルースを聴く</small>
+      </a>
+      <a href="/ja/two-blues/long-story/">
+        <span>二つのブルースが生まれるまで →</span>
+        <small>小樽の夜から始まった、僕の物語</small>
       </a>
     </nav>
   </article>
@@ -146,6 +150,10 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
   }
 
   .story-return {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: flex-start;
+    gap: 3rem 5rem;
     padding: 0 0 clamp(7rem, 14vw, 11rem);
   }
 
@@ -180,6 +188,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
   }
 
   @media (max-width: 42rem) {
+    .story-return { grid-template-columns: 1fr; row-gap: 3rem; }
     .story-header,
     .story-body,
     .story-return { width: min(100% - 2.5rem, 44rem); }
